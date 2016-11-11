@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title }}</title>
+
+        <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="/semantic/semantic.min.js"></script>
+    </head>
+
+<body>
+
+<!-- Navigation Menu -->
+<div class="ui attached stackable menu">
+  <div class="ui container">
+    <a href="/" class="item">
+      <i class="home icon"></i> Home
+    </a>
+    <a href="/newnote" class="item">
+      <i class="book icon"></i> New note
+    </a>
+
+    <div class="right item">
+      <div class="ui input"><input type="text" placeholder="Search..."></div>
+    </div>
+  </div>
+</div>
+
+<!-- Divider -->
+<div class="ui hidden divider"></div>
+
+<div class="ui container">
+
+<!-- Show errors -->
+{% if message.length > 0 %}
+
+    <div class="ui negative message">
+        <i class="close icon"></i>
+        <div class="header">
+            Error
+        </div>
+
+        {{ message }}
+    </div>
+
+{% endif %}
+
+<!-- New note form -->
+<div class="ui attached message">
+    <div class="header">
+        Please use this form to insert new note
+    </div>
+</div>
+
+<form class="ui form attached fluid segment" method="post">
+    <div class="two fields">
+        <div class="field">
+            <label>Name</label>
+            <select class="ui dropdown" name="memberName">
+                <option value="">Select name</option>
+                {% for user in users %}
+                    <option value="{{ user.username }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Current project or Task</label>
+            <select class="ui dropdown" name="project">
+                <option value="">Select project</option>
+                <option value="matrix">Code Review</option>
+                <option value="trinity">Intelligent UI Feature</option>
+                <option value="morpheus">Data Set XO</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="two fields">
+        <div class="field">
+            <label>What did you work on yesterday ?</label>
+            <textarea name="workYesterday"></textarea>
+        </div>
+
+        <div class="field">
+            <label>What will you work on today ?</label>
+            <textarea name="workToday"></textarea>
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Any Impediment(s) ?</label>
+        <textarea name="impediment"></textarea>
+    </div>
+
+    <button id="btnSaveNote" class="ui primary basic animated button" name="button">
+        <div class="visible content">
+            Next
+        </div>
+
+        <div class="hidden content">
+            <i class="right arrow icon"></i>
+        </div>
+    </button>
+</form>
+
+</div> <!-- End container div -->
+
+<script type="text/javascript">
+    $('.ui.dropdown').dropdown();
+</script>
+
+</body>
+</html>

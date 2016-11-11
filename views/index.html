@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+
+        <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="/semantic/semantic.min.js"></script>
+    </head>
+
+<body>
+
+<!-- Navigation Menu -->
+<div class="ui attached stackable menu">
+  <div class="ui container">
+    <a href="/" class="item">
+      <i class="home icon"></i> Home
+    </a>
+    <a href="/newnote" class="item">
+      <i class="book icon"></i> New note
+    </a>
+
+    <div class="right item">
+      <div class="ui input"><input type="text" placeholder="Search..."></div>
+    </div>
+  </div>
+</div>
+
+<div class="ui hidden divider"></div>
+
+<div class="ui center aligned icon header">
+    <i class="circular users icon"></i>
+    <h2 class="ui header">Virtual Meeting Notes</h2>
+
+    <p>
+        This is a list of the last dozen meeting notes that were entered in
+    </p>
+</div>
+
+<div class="ui hidden divider"></div>
+
+<div class="ui container">
+
+<form class="ui form" method="post">
+    <div class="inline field">
+        <label>Filter by</label>
+        <select class="ui dropdown" name="noteByMember">
+            <option value="">Member Name</option>
+
+            <option value="showall">Show all</option>
+            {% for user in users %}
+                <option value="{{ user.username }}">
+                    {{ user.username }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button class="ui icon basic blue button" name="button">
+            <i class="right arrow icon"></i>
+        </button>
+    </div>
+</form>
+
+<div class="ui hidden divider"></div>
+
+<!-- Content goes here -->
+<div class="ui two column doubling stackable grid">
+    {% for note in notes %}
+        <div class="column">
+            <div class="ui content segment">
+                <div class="header">
+                    Note from <b>{{ note.memberName }}</b> on <b>{{ note.createdOn.toDateString() }}</b> for project <b>{{ note.project }}</b>
+                </div>
+
+                <div class="ui very relaxed list">
+                    <div class="item">
+                        <a class="header">
+                            Work Yesterday
+                        </a>
+
+                        <div class="content">
+                            {{ note.workYesterday }}
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a class="header">
+                            Work Today
+                        </a>
+
+                        <div class="content">
+                            {{ note.workToday }}
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a class="header">
+                            Impediment
+                        </a>
+
+                        <div class="content">
+                            {{ note.impediment }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $('.ui.dropdown').dropdown();
+</script>
+
+</body>
+</html>
